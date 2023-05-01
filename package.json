@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@prisma/client": "^4.13.0",
+    "prisma": "^4.13.0",
+    "prisma-nestjs-graphql": "^18.0.0",
+    "turbo": "^1.9.3"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}
