@@ -8,6 +8,5 @@ Backend
 Frontend
 - NextJS
 - NextAuth
-- ReactJS
 - Urql
 - ChakraUI
