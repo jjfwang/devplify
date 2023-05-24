@@ -10,3 +10,6 @@ Frontend
 - NextAuth
 - Urql
 - ChakraUI
+
+npm i
+npx prisma generate
