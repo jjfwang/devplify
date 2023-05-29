@@ -1,3 +1,5 @@
+import { About } from "@/components/about";
+import Navigation from "@/components/navigation";
 import Providers from "@/components/providers";
 import { Metadata } from "next";
 
@@ -15,7 +17,11 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navigation />
+          {children}
+          <About />
+        </Providers>
       </body>
     </html>
   );
