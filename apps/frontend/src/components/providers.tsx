@@ -13,12 +13,14 @@ import {
 } from "urql";
 import { createClient as createWSClient } from "graphql-ws";
 
+const graphql_server_url = "http://localhost:3001/graphql";
+
 const wsClient = createWSClient({
-  url: 'http://localhost:3001/graphql'//process.env.GRAPHQL_SERVER_URL as string,
+  url: graphql_server_url,
 });
 
 const client = createClient({
-  url: 'http://localhost:3001/graphql', //process.env.GRAPHQL_SERVER_URL as string,
+  url: graphql_server_url,
   exchanges: [
     cacheExchange,
     fetchExchange,
