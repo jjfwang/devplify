@@ -3,6 +3,7 @@
 import React, { ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
 import { ChakraProvider } from "@chakra-ui/react";
+import { CacheProvider } from "@chakra-ui/next-js";
 
 interface Props {
   children: ReactNode;
@@ -11,7 +12,9 @@ interface Props {
 const Providers = ({ children }: Props) => {
   return (
     <SessionProvider>
-      <ChakraProvider>{children}</ChakraProvider>
+      <CacheProvider>
+        <ChakraProvider>{children}</ChakraProvider>
+      </CacheProvider>
     </SessionProvider>
   );
 };
