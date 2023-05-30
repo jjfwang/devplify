@@ -21,7 +21,7 @@ export default function Navigation(props: INavigationProps) {
     <>
       <Flex minWidth="max-content" alignItems="center" gap="2" p={5}>
         <Box p="2">
-          <Heading size="xl">Devplify</Heading>
+          <Heading size="xl" p={5}>Devplify</Heading>
         </Box>
         <Spacer />
         <ButtonGroup gap="4" p={5}>
