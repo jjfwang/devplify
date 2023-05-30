@@ -20,7 +20,7 @@ export default function Navigation(props: INavigationProps) {
   return (
     <>
       <Flex minWidth="max-content" alignItems="center" gap="2" p={5}>
-        <Box p="2">
+        <Box>
           <Heading size="xl" p={5}>Devplify</Heading>
         </Box>
         <Spacer />
