@@ -2,7 +2,7 @@
 
 import React, { ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import { CacheProvider } from "@chakra-ui/next-js";
 import {
   createClient,
@@ -47,7 +47,7 @@ export default function Providers({ children }: IProvidersProps) {
     <SessionProvider>
       <Provider value={client}>
         <CacheProvider>
-          <ChakraProvider>{children}</ChakraProvider>
+          <ChakraProvider theme={theme}>{children}</ChakraProvider>
         </CacheProvider>
       </Provider>
     </SessionProvider>
