@@ -9,7 +9,7 @@ Frontend
 - NextJS
 - NextAuth
 - Urql
-- ChakraUI
+- Material UI
 
 npm i
 npx prisma generate

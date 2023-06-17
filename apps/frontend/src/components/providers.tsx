@@ -2,8 +2,7 @@
 
 import React, { ReactNode } from "react";
 import { SessionProvider } from "next-auth/react";
-import { ChakraProvider, theme } from "@chakra-ui/react";
-import { CacheProvider } from "@chakra-ui/next-js";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   createClient,
   Provider,
@@ -43,12 +42,11 @@ export interface IProvidersProps {
 }
 
 export default function Providers({ children }: IProvidersProps) {
+  const theme = createTheme();
   return (
     <SessionProvider>
       <Provider value={client}>
-        <CacheProvider>
-          <ChakraProvider theme={theme}>{children}</ChakraProvider>
-        </CacheProvider>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </Provider>
     </SessionProvider>
   );
