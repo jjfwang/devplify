@@ -1,11 +1,10 @@
-import { User } from '@prisma/client';
-import { Box, VStack } from '@chakra-ui/layout';
-import * as React from 'react';
-import { useQuery } from 'urql';
-import { Spinner } from '@chakra-ui/react';
+import { User } from "@prisma/client";
+import { Box, VStack } from "@chakra-ui/layout";
+import * as React from "react";
+import { useQuery } from "urql";
+import { Spinner, useToast } from "@chakra-ui/react";
 
-export interface IFeedProps {
-}
+export interface IFeedProps {}
 const usersQuery = `
 query usersQuery($orderBy: OrderByParams!) {
   users(orderBy: $orderBy) {
@@ -14,22 +13,28 @@ query usersQuery($orderBy: OrderByParams!) {
   }
 }
 `;
-type UserQueryRes = {
-  users: User[];
-};
+
 export function Feed(props: IFeedProps) {
-  const [{ data, fetching, error }] = useQuery<UserQueryRes>({
+  const toast = useToast();
+  const [{ data, fetching, error }] = useQuery({
     query: usersQuery,
     variables: {
       orderBy: {
-        field: 'createdAt',
-        direction: 'desc',
+        field: "createdAt",
+        direction: "desc",
       },
     },
   });
-  if (error) return <p>Something went wrong...</p>;
+  if (error)
+    toast({
+      title: "Error",
+      status: "error",
+      position: "bottom",
+      description: error.message,
+      isClosable: true,
+    });
   if (fetching || !data) return <Spinner />;
-  console.log(data)
+
   return (
     <Box w="100%">
       <VStack spacing={4}>
