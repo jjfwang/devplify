@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
+import { Feed } from "@/components/feed";
 import { Box, Text, Grid, Heading, VStack } from "@chakra-ui/react";
-import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Home() {
   return (
@@ -13,6 +13,7 @@ export default function Home() {
             We are making web development as easy as 1, 2, 3. So you can build
             your dream project sooner.
           </Text>
+          <Feed />
         </VStack>
       </Grid>
     </Box>
