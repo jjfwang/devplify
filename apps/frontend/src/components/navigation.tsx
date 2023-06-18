@@ -147,7 +147,7 @@ export default function Navigation(props: INavigationProps) {
                     <Typography textAlign="center">Account</Typography>
                   </MenuItem>
                   <MenuItem key="logout" onClick={() => signOut()}>
-                    <Typography textAlign="center">Logout</Typography>
+                    <Typography textAlign="center">Sign out</Typography>
                   </MenuItem>
                 </Menu>
               </Box>

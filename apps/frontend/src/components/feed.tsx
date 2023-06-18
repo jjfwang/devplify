@@ -1,8 +1,7 @@
 import { User } from "@prisma/client";
-import { Box, VStack } from "@chakra-ui/layout";
+import { Box, Alert, AlertTitle, Stack, CircularProgress } from "@mui/material";
 import * as React from "react";
 import { useQuery } from "urql";
-import { Spinner, useToast } from "@chakra-ui/react";
 
 export interface IFeedProps {}
 const usersQuery = `
@@ -15,7 +14,6 @@ query usersQuery($orderBy: OrderByParams!) {
 `;
 
 export function Feed(props: IFeedProps) {
-  const toast = useToast();
   const [{ data, fetching, error }] = useQuery({
     query: usersQuery,
     variables: {
@@ -26,22 +24,21 @@ export function Feed(props: IFeedProps) {
     },
   });
   if (error)
-    toast({
-      title: "Error",
-      status: "error",
-      position: "bottom",
-      description: error.message,
-      isClosable: true,
-    });
-  if (fetching || !data) return <Spinner />;
+    return (
+      <Alert severity="error" onClose={() => {}}>
+        <AlertTitle>Error</AlertTitle>
+        {error.message}
+      </Alert>
+    );
+  if (fetching || !data) return <CircularProgress />;
 
   return (
-    <Box w="100%">
-      <VStack spacing={4}>
+    <Box width="100%">
+      <Stack spacing={4}>
         {data?.users.map((user: User) => (
           <p key={user.id}>{user.email}</p>
         ))}
-      </VStack>
+      </Stack>
     </Box>
   );
 }
