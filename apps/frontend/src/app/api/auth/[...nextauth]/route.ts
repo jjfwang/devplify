@@ -1,19 +1,19 @@
 import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github"
-import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import {PrismaClient} from "@prisma/client";
-import GoogleProvider from "next-auth/providers/google"
-import FacebookProvider from "next-auth/providers/facebook"
+import GithubProvider from "next-auth/providers/github";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
+import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
 import EmailProvider from "next-auth/providers/email";
 
 const prisma = new PrismaClient();
 
-const handler =  NextAuth({
+const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({
       server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM
+      from: process.env.EMAIL_FROM,
     }),
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
@@ -30,5 +30,4 @@ const handler =  NextAuth({
   ],
 });
 
-export { handler as GET, handler as POST }
-
+export { handler as GET, handler as POST };

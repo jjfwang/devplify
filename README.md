@@ -1,11 +1,13 @@
 # Devplify
 
 Backend
+
 - Prisma ORM
 - NestJS
 - GraphQL
 
 Frontend
+
 - NextJS
 - NextAuth
 - Urql
@@ -13,3 +15,4 @@ Frontend
 
 npm i
 npx prisma generate
+npx prettier --write .

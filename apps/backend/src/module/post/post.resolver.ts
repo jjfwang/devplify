@@ -3,9 +3,9 @@ import {
   Query,
   Mutation,
   Args,
-  Int,
   ResolveField,
   Parent,
+  ObjectType,
 } from '@nestjs/graphql';
 import { PostService } from './post.service';
 import { Post } from '_generated_/post/post.model';
@@ -14,6 +14,11 @@ import { PostUpdateInput } from '_generated_/post/post-update.input';
 import { OrderByParams } from 'src/common/query-param';
 import { User } from '_generated_/user/user.model';
 import { PrismaService } from 'src/common/prisma.service';
+import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+import { Connection, ConnectionArguments } from 'src/common/connection';
+
+@ObjectType()
+export class PostConnection extends Connection<Post>(Post) {}
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -21,6 +26,18 @@ export class PostResolver {
     private readonly postService: PostService,
     private readonly prisma: PrismaService,
   ) {}
+
+  @Query(() => PostConnection, { name: 'post_connection' })
+  async postConnection(
+    @Args('connectionArgs', { type: () => ConnectionArguments })
+    connectionArgs: ConnectionArguments,
+  ): Promise<PostConnection> {
+    return findManyCursorConnection(
+      (args) => this.prisma.post.findMany({ ...args }),
+      () => this.prisma.post.count(),
+      connectionArgs,
+    );
+  }
 
   @Mutation(() => Post)
   async createPost(@Args('postCreateInput') postCreateInput: PostCreateInput) {
