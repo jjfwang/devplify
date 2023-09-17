@@ -11,11 +11,11 @@ import { UserService } from './user.service';
 import { User } from '_generated_/user/user.model';
 import { UserCreateInput } from '_generated_/user/user-create.input';
 import { UserUpdateInput } from '_generated_/user/user-update.input';
-import { PrismaService } from 'src/common/prisma.service';
-import { OrderByParams } from 'src/common/query-param';
+import { PrismaService } from '@/common/prisma.service';
+import { OrderByParams } from '@/common/query-param';
 import { Post } from '_generated_/post/post.model';
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
-import { Connection, ConnectionArguments } from 'src/common/connection';
+import { Connection, ConnectionArguments } from '@/common/connection';
 
 @ObjectType()
 export class UserConnection extends Connection<User>(User) {}

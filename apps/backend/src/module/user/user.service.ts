@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { UserCreateInput } from '_generated_/user/user-create.input';
 import { UserUpdateInput } from '_generated_/user/user-update.input';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from '@/common/prisma.service';
 import { User } from '_generated_/user/user.model';
-import { OrderByParams } from 'src/common/query-param';
+import { OrderByParams } from '@/common/query-param';
 import { UserWhereUniqueInput } from '_generated_/user/user-where-unique.input';
 
 @Injectable()

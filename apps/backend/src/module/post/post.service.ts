@@ -3,8 +3,8 @@ import { PostCreateInput } from '_generated_/post/post-create.input';
 import { PostUpdateInput } from '_generated_/post/post-update.input';
 import { PostWhereUniqueInput } from '_generated_/post/post-where-unique.input';
 import { Post } from '_generated_/post/post.model';
-import { PrismaService } from 'src/common/prisma.service';
-import { OrderByParams } from 'src/common/query-param';
+import { PrismaService } from '@/common/prisma.service';
+import { OrderByParams } from '@/common/query-param';
 
 @Injectable()
 export class PostService {
