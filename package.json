@@ -1,4 +1,7 @@
 {
+  "name": "devplify",
+  "version": "1.0.0",
+  "license": "MIT",
   "dependencies": {
     "@prisma/client": "^4.13.0",
     "prisma": "^4.13.0",
@@ -6,10 +9,17 @@
     "turbo": "^1.9.3"
   },
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build"
+    "dev": "concurrently -n \"backend,frontend\" -c \"blue,green\" \"npm run dev:backend\" \"npm run dev:web\"",
+    "build": "turbo run build",
+    "dev:web": "cd apps/frontend && npm run dev",
+    "dev:backend": "cd apps/backend && npm run dev",
+    "dev:mobile": "cd apps/mobile && npx expo start"
   },
   "workspaces": [
-    "apps/*"
-  ]
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
 }

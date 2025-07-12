@@ -1,0 +1,21 @@
+{
+  "name": "@devplify/shared-utils",
+  "version": "1.0.0",
+  "description": "Shared utilities for Devplify applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@devplify/shared-types": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

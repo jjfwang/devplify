@@ -1,164 +1,130 @@
 "use client";
 
 import * as React from "react";
-import MenuIcon from "@mui/icons-material/Menu";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useState } from "react";
+import { Layout, Menu, Avatar, Button, Dropdown, Space, Badge } from "antd";
 import {
-  IconButton,
-  Button,
-  Typography,
-  Toolbar,
-  Box,
-  AppBar,
-  Avatar,
-  Tooltip,
-  Menu,
-  MenuItem,
-  Badge,
-} from "@mui/material";
+  MenuOutlined,
+  UserOutlined,
+  MailOutlined,
+  BellOutlined,
+  LogoutOutlined,
+  ProfileOutlined,
+  FileTextOutlined,
+  TeamOutlined,
+} from "@ant-design/icons";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const { Header } = Layout;
 
 export interface INavigationProps {}
 
 export default function Navigation(props: INavigationProps) {
   const { data: session } = useSession();
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const router = useRouter();
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const userMenuItems = [
+    {
+      key: "profile",
+      icon: <ProfileOutlined />,
+      label: "Profile",
+    },
+    {
+      key: "account",
+      icon: <UserOutlined />,
+      label: "Account",
+    },
+    {
+      type: "divider" as const,
+    },
+    {
+      key: "logout",
+      icon: <LogoutOutlined />,
+      label: "Sign out",
+      onClick: () => signOut(),
+    },
+  ];
+
+  const navigationItems = [
+    {
+      key: "users",
+      label: "Users",
+      icon: <TeamOutlined />,
+    },
+    {
+      key: "posts",
+      label: "Posts",
+      icon: <FileTextOutlined />,
+    },
+  ];
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    if (key === "home") {
+      router.push("/");
+    } else {
+      router.push(`/${key}`);
+    }
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleOpenNavMenu}
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box sx={{ flexGrow: 0 }}>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <Header
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        background: "#001529",
+        padding: "0 24px",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", color: "white" }}>
+        <div
+          style={{
+            fontSize: "20px",
+            fontWeight: "bold",
+            marginRight: "24px",
+            cursor: "pointer",
+          }}
+          onClick={() => router.push("/")}
+        >
+          Devplify
+        </div>
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          items={navigationItems}
+          style={{ minWidth: 0, flex: "auto" }}
+          onClick={handleMenuClick}
+        />
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {session ? (
+          <Space size="large">
+            <Badge count={4}>
+              <MailOutlined style={{ fontSize: "20px", color: "white" }} />
+            </Badge>
+            <Badge count={17}>
+              <BellOutlined style={{ fontSize: "20px", color: "white" }} />
+            </Badge>
+            <Dropdown
+              menu={{ items: userMenuItems }}
+              placement="bottomRight"
+              trigger={["click"]}
             >
-              <MenuItem key="users" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Users</Typography>
-              </MenuItem>
-              <MenuItem key="posts" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Posts</Typography>
-              </MenuItem>
-              <MenuItem key="accounts" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Accounts</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Devplify
-          </Typography>
-          {session ? (
-            <>
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge badgeContent={17} color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-                <Tooltip title={session.user?.name ?? ""}>
-                  <IconButton
-                    size="large"
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-haspopup="true"
-                    onClick={handleOpenUserMenu}
-                    color="inherit"
-                  >
-                    <Avatar
-                      src={session.user?.image ?? ""}
-                      sx={{ width: 22, height: 22 }}
-                    />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-              <Box sx={{ flexGrow: 0 }}>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  <MenuItem key="profile" onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">Profile</Typography>
-                  </MenuItem>
-                  <MenuItem key="account" onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">Account</Typography>
-                  </MenuItem>
-                  <MenuItem key="logout" onClick={() => signOut()}>
-                    <Typography textAlign="center">Sign out</Typography>
-                  </MenuItem>
-                </Menu>
-              </Box>
-            </>
-          ) : (
-            <Button color="inherit" onClick={() => signIn()}>
-              Sign in
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Box>
+              <Avatar
+                src={session.user?.image}
+                icon={<UserOutlined />}
+                style={{ cursor: "pointer" }}
+              />
+            </Dropdown>
+          </Space>
+        ) : (
+          <Button type="primary" onClick={() => signIn()}>
+            Sign in
+          </Button>
+        )}
+      </div>
+    </Header>
   );
 }
