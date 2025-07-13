@@ -12,8 +12,7 @@
     "dev": "concurrently -n \"backend,frontend\" -c \"blue,green\" \"npm run dev:backend\" \"npm run dev:web\"",
     "build": "turbo run build",
     "dev:web": "cd apps/frontend && npm run dev",
-    "dev:backend": "cd apps/backend && npm run dev",
-    "dev:mobile": "cd apps/mobile && npx expo start"
+    "dev:backend": "cd apps/backend && npm run dev"
   },
   "workspaces": [
     "apps/*",
