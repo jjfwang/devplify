@@ -1,0 +1,24 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@devplify/shared-types": ["../../packages/shared-types/src"],
+      "@devplify/shared-types/*": ["../../packages/shared-types/src/*"],
+      "@devplify/shared-utils": ["../../packages/shared-utils/src"],
+      "@devplify/shared-utils/*": ["../../packages/shared-utils/src/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
+}
